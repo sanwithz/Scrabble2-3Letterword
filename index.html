@@ -14,8 +14,7 @@
   <!-- Sweet Alert -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Loading Overlay -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai');
 
@@ -31,11 +30,12 @@
       justify-content: flex-start;
       height: 100vh;
       font-family: Arial, sans-serif;
+      padding: 10px;
     }
 
     .card {
-      width: 150px;
-      height: 200px;
+      width: 100px;
+      height: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -46,7 +46,7 @@
     }
 
     .card span {
-      font-size: 3rem;
+      font-size: 2rem;
     }
 
     .buttons {
@@ -56,18 +56,28 @@
     .buttons button {
       margin: 5px;
     }
+
+    @media (min-width: 768px) {
+      .card {
+        width: 150px;
+        height: 200px;
+      }
+
+      .card span {
+        font-size: 3rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <br />
   <h1>Scrabble Training</h1>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex flex-wrap justify-content-center">
     <div class="card" id="card1"><span>-</span></div>
     <div class="card" id="card2"><span>-</span></div>
     <div class="card" id="card3"><span>-</span></div>
   </div>
-  <div class="buttons">
+  <div class="buttons d-flex flex-wrap justify-content-center">
     <button class="btn btn-lg btn-success" id="validButton">มีความหมาย</button>
     <button class="btn btn-lg btn-danger" id="notValidButton">ไม่มีความหมาย</button>
     <button class="btn btn-lg btn-secondary" id="resetButton">รีเซ็ต</button>
