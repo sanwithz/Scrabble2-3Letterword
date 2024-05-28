@@ -14,7 +14,8 @@
   <!-- Sweet Alert -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Loading Overlay -->
-  <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai');
 
@@ -57,6 +58,10 @@
       margin: 5px;
     }
 
+    .count {
+      margin-top: 20px;
+    }
+
     @media (min-width: 768px) {
       .card {
         width: 150px;
@@ -71,6 +76,7 @@
 </head>
 
 <body>
+  <br />
   <h1>Scrabble Training</h1>
   <div class="d-flex flex-wrap justify-content-center">
     <div class="card" id="card1"><span>-</span></div>
@@ -82,10 +88,16 @@
     <button class="btn btn-lg btn-danger" id="notValidButton">ไม่มีความหมาย</button>
     <button class="btn btn-lg btn-secondary" id="resetButton">รีเซ็ต</button>
   </div>
+  <div class="count d-flex flex-wrap justify-content-center">
+    <div id="correctCount" class="m-2">Correct: 0</div>
+    <div id="wrongCount" class="m-2">Wrong: 0</div>
+  </div>
   <script>
     $(document).ready(function () {
       const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ-';
       let trainingData = [];
+      let correctCount = 0;
+      let wrongCount = 0;
 
       // Fetch JSON data
       $.getJSON("https://opensheet.elk.sh/1nLolum-WHH26amobNDtflnd41O9em_OgwoiyGq1KS5c/Training", function (data) {
@@ -119,10 +131,13 @@
         let isValid = checkWord(cardValues);
 
         if (isValid) {
+          correctCount++;
           Swal.fire('ถูกต้อง', 'คำนี้มีความหมาย!', 'success');
         } else {
+          wrongCount++;
           Swal.fire('ไม่ถูกต้อง', 'คำนี้ไม่มีความหมาย!', 'error');
         }
+        updateCounts();
       });
 
       $('#notValidButton').on('click', function () {
@@ -133,15 +148,23 @@
         let isNotValid = !checkWord(cardValues);
 
         if (isNotValid) {
+          correctCount++;
           Swal.fire('ถูกต้อง', 'คำนี้ไม่มีความหมาย', 'success');
         } else {
+          wrongCount++;
           Swal.fire('ไม่ถูกต้อง', 'คำนี้มีความหมาย!', 'error');
         }
+        updateCounts();
       });
 
       $('#resetButton').on('click', function () {
         $('.card span').text('-');
       });
+
+      function updateCounts() {
+        $('#correctCount').text(`Correct: ${correctCount}`);
+        $('#wrongCount').text(`Wrong: ${wrongCount}`);
+      }
     });
   </script>
 </body>
